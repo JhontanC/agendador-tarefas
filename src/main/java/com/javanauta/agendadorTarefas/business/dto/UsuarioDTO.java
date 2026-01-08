@@ -1,8 +1,6 @@
-package com.javanauta.agendador_tarefas.business.dto;
+package com.javanauta.agendadorTarefas.business.dto;
 
 import lombok.*;
-
-import java.util.List;
 
 @Getter
 @Setter

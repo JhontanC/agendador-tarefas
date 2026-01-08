@@ -29,17 +29,31 @@ ext {
 }
 
 dependencies {
+	// Spring Boot e outros
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-webmvc'
 	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+	// JWT
 	implementation 'io.jsonwebtoken:jjwt-api:0.13.0'
 	implementation 'io.jsonwebtoken:jjwt-jackson:0.13.0'
 	implementation 'io.jsonwebtoken:jjwt-impl:0.13.0'
 
+	// --- MAPSTRUCT ---
+	// Esta é a linha que faltava para importar o @Mapper
+	implementation 'org.mapstruct:mapstruct:1.5.3.Final'
 
+	// --- LOMBOK ---
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// --- PROCESSADORES DE ANOTAÇÃO (Ordem correta) ---
+	// O binding deve vir após o lombok e antes ou junto com o mapstruct-processor
+	annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+
+	// Testes
 	testImplementation 'org.springframework.boot:spring-boot-starter-data-mongodb-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-security-test'
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
