@@ -2,13 +2,15 @@ package com.javanauta.agendadorTarefas.controller;
 
 import com.javanauta.agendadorTarefas.business.TarefasService;
 import com.javanauta.agendadorTarefas.business.dto.TarefasDTO;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @RequestMapping("/tarefas")
@@ -23,4 +25,16 @@ public class TarefasController {
         return ResponseEntity.ok(tarefasService.gravarTarefa(token, dto));
     }
 
+    @GetMapping("/eventos")
+    public ResponseEntity<List<TarefasDTO>> buscaListaTarefasPorPeriodo(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataInicial,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dataFinal
+            ){
+        return ResponseEntity.ok(tarefasService.buscaTarefasAgendadasPorPeriodo(dataInicial,dataFinal));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<TarefasDTO>> buscaTarefasPorEmail(@RequestHeader("Authorization") String token){
+        return ResponseEntity.ok(tarefasService.buscaUsuarioPorEmail(token));
+    }
 }
